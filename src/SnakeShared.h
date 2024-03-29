@@ -1,0 +1,52 @@
+#include "InitData.h"
+
+#ifndef SnakeTypes_h
+#define SnakeTypes_h
+
+#define _SNAKE_CELL_CENTER(_VAL_, _OFFSET_) (_OFFSET_ + (_VAL_ + 1) * SNAKE_CELL_SEIZE - SNAKE_CELL_MARGIN)
+
+#define SNAKE_CELL_CENTER_X(_COLUMN_) _SNAKE_CELL_CENTER(_COLUMN_, SNAKE_FIELD_POS_X)
+#define SNAKE_CELL_CENTER_Y(_ROW_) _SNAKE_CELL_CENTER(_ROW_, SNAKE_FIELD_POS_Y)
+
+#define SNAKE_CELL_UL_X(_COLUMN_) (SNAKE_CELL_CENTER_X(_COLUMN_) - SNAKE_CELL_MARGIN)
+#define SNAKE_CELL_UL_Y( _ROW_)  (SNAKE_CELL_CENTER_Y(_ROW_) - SNAKE_CELL_MARGIN)
+
+#define SNAKE_CELL_DR_X(_COLUMN_) (SNAKE_CELL_CENTER_X(_COLUMN_) + SNAKE_CELL_MARGIN)
+#define SNAKE_CELL_DR_Y(_ROW_) (SNAKE_CELL_CENTER_Y(_ROW_) + SNAKE_CELL_MARGIN)
+
+#define SNAKE_CELL_UPDATE(_OLED_, _COLUMN_, _ROW_) _OLED_.update(SNAKE_RECT_PARAMS(_COLUMN_, _ROW_))
+
+#define SNAKE_RECT_PARAMS(_COLUMN_, _ROW_) SNAKE_CELL_UL_X(_COLUMN_), SNAKE_CELL_UL_Y(_ROW_), SNAKE_CELL_DR_X(_COLUMN_), SNAKE_CELL_DR_Y(_ROW_)
+#define SNAKE_CENTER_PARAMS(_COLUMN_, _ROW_) SNAKE_CELL_CENTER_X(_COLUMN_), SNAKE_CELL_CENTER_Y(_ROW_)
+
+#define SNAKE_INNER_POS_UL_X (SNAKE_FIELD_POS_X + 1)
+#define SNAKE_INNER_POS_UL_Y (SNAKE_FIELD_POS_Y + 1)
+
+#define SNAKE_INNER_POS_DR_X (SNAKE_INNER_POS_UL_X + SNAKE_COLUMN_COUNT * SNAKE_CELL_SEIZE - 1)
+#define SNAKE_INNER_POS_DR_Y (SNAKE_INNER_POS_UL_Y + SNAKE_ROW_COUNT * SNAKE_CELL_SEIZE - 1)
+
+enum Direction : int8_t
+{
+    None = 0,
+    Up = 1,
+    Down = -1,
+    Left = 2,
+    Right = -2
+};
+struct Point
+{
+    uint8_t X;
+    uint8_t Y;
+};
+struct Barrier
+{
+    Point UL;
+    Point DR;
+};
+
+INLINE bool SnakeEventGameEnd(bool isWin);
+INLINE void SnakeEventEditSize(uint8_t sizeSnake);
+INLINE void SnakeEventStart();
+
+
+#endif

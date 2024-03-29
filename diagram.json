@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "author": "Denis Ivanov",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": -37.8, "left": -163.8, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 316.7,
+      "left": 195.5,
+      "rotate": 90,
+      "attrs": { "color": "green", "key": "ArrowDown" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn2",
+      "top": 230.3,
+      "left": 109.1,
+      "rotate": 90,
+      "attrs": { "color": "green", "key": "ArrowLeft" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn3",
+      "top": 143.9,
+      "left": 195.5,
+      "rotate": 90,
+      "attrs": { "color": "green", "key": "ArrowUp" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn4",
+      "top": 230.3,
+      "left": 281.9,
+      "rotate": 90,
+      "attrs": { "color": "green", "key": "ArrowRight" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn5",
+      "top": 230.3,
+      "left": 195.5,
+      "rotate": 90,
+      "attrs": { "color": "green", "key": "Enter" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -187.2,
+      "left": -19.75,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": -187.2,
+      "left": -0.55,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": -187.2,
+      "left": 18.65,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r4",
+      "top": -187.2,
+      "left": 37.85,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r5",
+      "top": -187.2,
+      "left": 57.05,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    { "type": "wokwi-gnd", "id": "gnd1", "top": -211.2, "left": 105, "attrs": {} },
+    { "type": "wokwi-vcc", "id": "vcc1", "top": 355.96, "left": 288, "attrs": {} },
+    { "type": "wokwi-vcc", "id": "vcc2", "top": 250.36, "left": 182.4, "attrs": {} },
+    { "type": "wokwi-vcc", "id": "vcc3", "top": 259.96, "left": 355.2, "attrs": {} },
+    {
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": 12.74,
+      "left": 259.43,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pot1",
+      "top": 398.6,
+      "left": 219.8,
+      "attrs": { "travelLength": "30" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": -84,
+      "left": 376.2,
+      "attrs": { "volume": "0.1" }
+    }
+  ],
+  "connections": [
+    [ "btn1:1.l", "btn5:1.r", "red", [ "v0" ] ],
+    [ "btn5:1.l", "btn3:1.r", "red", [ "v0" ] ],
+    [ "btn2:2.l", "uno:4", "gold", [ "h-326.6", "v-345.6", "h245.7" ] ],
+    [ "btn1:2.l", "uno:5", "gold", [ "h-403.4", "v-412.8", "h226.6" ] ],
+    [ "btn3:2.l", "uno:6", "gold", [ "h-441.8", "v-220.8", "h255.5" ] ],
+    [ "btn4:2.l", "uno:7", "gold", [ "v-9.6", "h-585.8", "v-278.4", "h303.6" ] ],
+    [ "btn5:2.l", "uno:8", "gold", [ "v-19.2", "h-528.2", "v-259.2", "h316.4" ] ],
+    [ "r1:2", "uno:8", "green", [ "h0" ] ],
+    [ "r2:2", "uno:7", "green", [ "h0" ] ],
+    [ "r3:2", "uno:6", "green", [ "h0" ] ],
+    [ "r4:2", "uno:5", "green", [ "h0" ] ],
+    [ "r5:2", "uno:4", "green", [ "h0" ] ],
+    [ "r1:1", "r2:1", "green", [ "h0" ] ],
+    [ "r3:1", "r2:1", "green", [ "h0" ] ],
+    [ "r3:1", "r4:1", "green", [ "h0" ] ],
+    [ "r5:1", "r4:1", "green", [ "h0" ] ],
+    [ "gnd1:GND", "r5:1", "black", [ "v0" ] ],
+    [ "btn1:1.r", "vcc1:VCC", "red", [ "v0" ] ],
+    [ "vcc2:VCC", "btn2:1.r", "red", [ "v0" ] ],
+    [ "btn4:1.r", "vcc3:VCC", "red", [ "v0" ] ],
+    [ "oled1:GND", "uno:GND.2", "black", [ "h-163.2", "v134.5" ] ],
+    [ "oled1:VCC", "uno:5V", "red", [ "h-201.45", "v134.5" ] ],
+    [ "oled1:SCL", "uno:A5.2", "green", [ "v-144", "h-230.1" ] ],
+    [ "oled1:SDA", "uno:A4.2", "green", [ "v0" ] ],
+    [ "pot1:SIG", "uno:A1", "green", [ "h0" ] ],
+    [ "uno:5V", "pot1:VCC", "red", [ "v0" ] ],
+    [ "pot1:GND", "uno:GND.3", "black", [ "v0" ] ],
+    [ "bz1:1", "oled1:GND", "green", [ "v0" ] ],
+    [ "bz1:2", "uno:2", "green", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
