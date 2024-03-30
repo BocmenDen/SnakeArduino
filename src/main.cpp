@@ -6,7 +6,7 @@
 
 uint64_t previousMillis = 0;
 
-INLINE void initButtons(){
+INLINE void InitButtons(){
   pinMode(BUTTON_UP, INPUT);
   pinMode(BUTTON_DOWN, INPUT);
   pinMode(BUTTON_LEFT, INPUT);
@@ -14,12 +14,30 @@ INLINE void initButtons(){
   pinMode(BUTTON_ENTER, INPUT);
 }
 
+INLINE void HelpInitMessage(){
+  oled.fill(255);
+  oled.invertText(true);
+  oled.setCursor(5, 1);
+  oled.setScale(2);
+  oled.print(F("SNAKE GAME"));
+  oled.setScale(1);
+  oled.setCursor(20, 4);
+  oled.print(F("After starting"));
+  oled.setCursor(8, 5);
+  oled.print(F("press the direction"));
+  oled.setCursor(20, 6);
+  oled.print(F("button to start"));
+  oled.invertText(false);
+  oled.update();
+}
+
 void setup() {
-  Serial.begin(9600);
   oled.init();
-  oled.clear();
+  Wire.setClock(800000L);
   SoundInit();
-  initButtons();
+  InitButtons();
+  HelpInitMessage();
+  delay(2000);
   SnakeStart();
 }
 
@@ -49,11 +67,18 @@ void loop() {
   SoundTick(currentMillis);
 }
 
-INLINE bool SnakeEventGameEnd(bool isWin){
+INLINE bool SnakeEventGameEnd(bool isWin, uint8_t score){
   SoundStart(isWin ? 0 : 1);
   oled.clear();
   oled.drawBitmap(0, 0, isWin ? youWin_128x64 : gameOver_128x64, 128, 64, BITMAP_NORMAL, BUF_ADD);
+  oled.invertText(true);
+  oled.setCursorXY(8, 32);
+  oled.print(isWin ? F("Click center button") : F("Click direction btn"));
+  oled.setCursorXY(40, 48);
+  oled.print(F("Score: "));
+  oled.print(score);
   oled.update();
+  oled.invertText(false);
   while(!CLICK(BUTTON_ENTER)) SoundTick();
   return true;
 }

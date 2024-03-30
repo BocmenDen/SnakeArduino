@@ -51,10 +51,10 @@ INLINE void SnakeDrawScore(uint8_t value){
 }
 void SnakeDrawBarrier(Barrier barrier, bool color){
     DRAW_RECT_UPDATE(oled,
-        border.UL.X,
-        border.UL.Y,
-        border.DR.X,
-        border.DR.Y,
+        barrier.UL.X,
+        barrier.UL.Y,
+        barrier.DR.X,
+        barrier.DR.Y,
         color ? OLED_FILL : OLED_CLEAR
     );
 }

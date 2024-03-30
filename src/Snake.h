@@ -4,7 +4,7 @@
 #ifndef Snake_h
 #define Snake_h
 
-#pragma Локальные переменные 
+#pragma region Локальные переменные 
 Direction _snakeCurrendDirection = Direction::None;
 Point _snakeCurrentOffset;
 Point _snakeFood;
@@ -15,7 +15,7 @@ Barrier _snakeBarriers[1 + SNAKE_COUNT_BARRIERS] = {};
 Point _snakeStack[SNAKE_COUNT_SEGMENT];
 int16_t _snakeHeadPointer = 0;
 #pragma endregion
-#pragma Работа с "стеком" хранения сегментов змейки. Запись происходит анологично кольцевому буферу
+#pragma region Работа с "стеком" хранения сегментов змейки. Запись происходит анологично кольцевому буферу
 INLINE void SnakeClearStack(){
     memset((void *)&_snakeStack, 0, SNAKE_COUNT_SEGMENT * sizeof(Point)); // TODO наверное можно удалить
     _snakeHeadPointer = 0;
@@ -34,7 +34,7 @@ Point SnakeGetValStack(uint8_t index){
     return _snakeStack[tmp];
 }
 #pragma endregion
-#pragma Внутренние методы 
+#pragma region Внутренние методы 
 bool SnakeCheckColisionCell(Point segment){
     Point tmp;
     for (size_t i = 0; i < _snakeSize; i++)
@@ -128,7 +128,7 @@ void SnakeGenerateFood(){
     SnakeDrawFood(_snakeFood, OLED_FILL);
 }
 #pragma endregion
-#pragma Методы нацеленные на вызов из вне
+#pragma region Методы нацеленные на вызов из вне
 void SnakeSetDirection(Direction inputDirection){
     if(inputDirection == Direction::None ||
        abs(inputDirection) == abs(_snakeCurrendDirection)
@@ -161,14 +161,14 @@ INLINE void SnakeTick()
     if (SnakeCheckColisionCell(nHead) ||
         SnakeCheckColisionBarriers(SNAKE_CENTER_PARAMS(nHead.X, nHead.Y)))
     {
-        if(SnakeEventGameEnd(false)) SnakeStart();
+        if(SnakeEventGameEnd(false, _snakeSize)) SnakeStart();
         return;
     }
     SnakePushStack(nHead);
     if (_snakeFood.X == nHead.X && _snakeFood.Y == nHead.Y)
     {
         _snakeSize++;
-#if SNAKE_BORDER_GENERATE_TICK
+#if SNAKE_BARRIER_GENERATE_TICK
         SnakeGenerateBarriers();
 #endif
         SnakeGenerateFood();
@@ -176,7 +176,7 @@ INLINE void SnakeTick()
         SnakeEventEditSize(_snakeSize);
         if (_snakeSize == (SNAKE_COUNT_SEGMENT - 1))
         {
-            if(SnakeEventGameEnd(true)) SnakeStart();
+            if(SnakeEventGameEnd(true, _snakeSize)) SnakeStart();
             return;
         }
     }

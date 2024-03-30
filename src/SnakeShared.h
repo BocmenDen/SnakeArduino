@@ -44,7 +44,7 @@ struct Barrier
     Point DR;
 };
 
-INLINE bool SnakeEventGameEnd(bool isWin);
+INLINE bool SnakeEventGameEnd(bool isWin, uint8_t score);
 INLINE void SnakeEventEditSize(uint8_t sizeSnake);
 INLINE void SnakeEventStart();
 
