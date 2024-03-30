@@ -73,7 +73,7 @@ INLINE bool SnakeEventGameEnd(bool isWin, uint8_t score){
   oled.drawBitmap(0, 0, isWin ? youWin_128x64 : gameOver_128x64, 128, 64, BITMAP_NORMAL, BUF_ADD);
   oled.invertText(true);
   oled.setCursorXY(8, 32);
-  oled.print(isWin ? F("Click center button") : F("Click direction btn"));
+  oled.print(F("Click center button"));
   oled.setCursorXY(40, 48);
   oled.print(F("Score: "));
   oled.print(score);
